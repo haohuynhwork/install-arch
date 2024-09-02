@@ -100,7 +100,7 @@
     - `nano /etc/fstab`
       
         ```
-        UUID="12345678" /run/media/owen/Disk ntfs-3g defaults, hide_hid_files 0 0
+        UUID="12345678" /run/media/owen/Disk ntfs-3g defaults, hide_hid_files,gid=984,uid=1000 0 0
         ```
 
 4. Install gtk file chooser

@@ -72,9 +72,9 @@
 
 17. Install grub
     - `nano /etc/default/grub`
-    - `os-prober`
     - `grub-install --recheck --target=x86_64-efi --bootloader-id=grub`
         <br>`--efi-directory=/efi`
+    - `os-prober`
     - `grub-mkconfig -o /boot/grub/grub.cfg`
 
 18. Enabel display manager
@@ -94,6 +94,7 @@
     - `timedatectl set-local-rtc 1`
 2. Enable system request
     - `sysrq`
+    -  `# echo "kernel.sysrq = 1" >> /etc/sysctl.d/99-sysctl.conf`
 3. Mount ntfs-3g partition
     - `nfs-3g`
     - `blskid`

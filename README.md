@@ -1,15 +1,18 @@
 ### Install Arch Linux basic
 1. Connect to internet
     - `ip addr show`
+    - `iwctl sation wlan0 get-networks`
     - `iwctl station wlan0 connect "Network name"`
 
 2. Start ssh
     - `systemctl start sshd`
 
 3. Add mirrors from https://archlinux.org/mirrorlist
+    - `curl 'mirror_list_link' > /etc/pacman.d/mirrorlist`
     - `vim /etc/pacman.d/mirrorlist`
 
 4. Makeformats and mount
+    - `fdisk -l, lsblk`
     - `mkfs.fat -F32 /dev/...`
     - `mkfs.ext4 /dev/nvme0n1p7`
     - `mount -m /dev/nvme0n1p7 /mnt`
@@ -49,7 +52,7 @@
 11. Essensial packages
     - `pacman -S base-devel dosfstools mtools efibootmgr`
         <br>`grub os-prober networkmanager sudo nano openssh`
-    - `pacman -S plasma-meta plasma-workspace konsole kwrite dolphin ark`  
+    - `pacman -S plasma-meta plasma-workspace konsole kwrite dolphin ark`
         `okular gwenview spectacle kwalletmanager partitionmanager`
 
 12. Change root passwd
@@ -90,21 +93,24 @@
 
 ### Config
 
-1. Set time
+1. Empty password
+    - `$y$j9T$9iAd/BXe87wH7aYE5CCTA1$E0zAsUOkbnpYVb4rjO7vlABm/eXWCETbQIgd7jpHDD8`
+
+2. Set time
     - `timedatectl set-local-rtc 1`
-2. Enable system request
+3. Enable system request
     - `sysrq`
     -  `# echo "kernel.sysrq = 1" >> /etc/sysctl.d/99-sysctl.conf`
-3. Mount ntfs-3g partition
-    - `nfs-3g`
-    - `blskid`
+4. Mount ntfs-3g partition
+    - `ntfs-3g`
+    - `sudo blkid`
     - `nano /etc/fstab`
       
         ```
         UUID="12345678" /run/media/owen/Disk ntfs-3g defaults, hide_hid_files,gid=984,uid=1000 0 0
         ```
 
-4. Install gtk file chooser
+5. Install gtk file chooser
 
     `sudo pacman -S xdg-desktop-portal-gtk`
     - `nano ~/.config/xdg-desktop-portal/portals.conf`
@@ -118,11 +124,9 @@
 
         ```
         [Service]
-        Environment="XDG_CURRENT_DESKTOP=KDE"
+        Environment="XDG_CURRENT_DESKTOP=GNOME"
         ```
 
-5. Additional packages
-    - `sudo pacman -S ibus ibus-bamboo libreoffice-still gimp`
-
-6. Empty password
-    - `$y$j9T$9iAd/BXe87wH7aYE5CCTA1$E0zAsUOkbnpYVb4rjO7vlABm/eXWCETbQIgd7jpHDD8`
+6. Additional packages
+    - `sudo pacman -S appmenu-gtk-module ibus ibus-bamboo libreoffice-still`
+    - `sudo pacman -S gimp inkscape python-tinycss2`

@@ -53,7 +53,7 @@
     - `pacman -S base-devel dosfstools mtools efibootmgr`
         <br>`grub os-prober networkmanager sudo nano openssh`
     - `pacman -S plasma-meta plasma-workspace konsole kwrite dolphin ark`
-        `okular gwenview spectacle kwalletmanager partitionmanager`
+        `okular gwenview spectacle kwalletmanager partitionmanager sddm-kcm`
 
 12. Change root passwd
     - `passwd`
@@ -74,7 +74,9 @@
     - `mount -m /dev/nvme0n1p1 /efi`
 
 17. Install grub
-    - `nano /etc/default/grub`
+    - Enable os prober
+
+        `nano /etc/default/grub`
     - `grub-install --recheck --target=x86_64-efi --bootloader-id=grub`
         <br>`--efi-directory=/efi`
     - `os-prober`
@@ -101,13 +103,21 @@
 3. Enable system request
     - `sysrq`
     -  `# echo "kernel.sysrq = 1" >> /etc/sysctl.d/99-sysctl.conf`
-4. Mount ntfs-3g partition
-    - `ntfs-3g`
+4. Swap partition
+    - `free -d`
+    - `swapon`
     - `sudo blkid`
     - `nano /etc/fstab`
       
         ```
-        UUID="12345678" /run/media/owen/Disk ntfs-3g defaults, hide_hid_files,gid=984,uid=1000 0 0
+        /dev/nvme0n1p8 none swap sw 0 
+        ```
+4. Mount ntfs-3g partition
+    - `ntfs-3g`
+    - `nano /etc/fstab`
+
+        ```
+        UUID=12345678 /run/media/owen/Disk ntfs-3g defaults, hide_hid_files,gid=984,uid=1000 0 0
         ```
 
 5. Install gtk file chooser
@@ -128,5 +138,16 @@
         ```
 
 6. Additional packages
-    - `sudo pacman -S appmenu-gtk-module ibus ibus-bamboo libreoffice-still`
-    - `sudo pacman -S gimp inkscape python-tinycss2`
+    - `sudo pacman -S appmenu-gtk-module ibus ibus-bamboo`
+    - `sudo pacman -S libreoffice-still gimp inkscape python-tinycss2`
+
+7. Fix applicaiton menu missing
+    Add variables to shortcut
+
+    Gimp:
+
+    `GDK_BACKEND=x11`
+
+    Dbeaver:
+
+    `UBUNTU_MENUPROXY=0`

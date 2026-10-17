@@ -97,7 +97,8 @@
 
 1. Empty password
     - `$y$j9T$9iAd/BXe87wH7aYE5CCTA1$E0zAsUOkbnpYVb4rjO7vlABm/eXWCETbQIgd7jpHDD8`
-
+1. Disable AMD curve backlight linux (optional)
+    - `amdgpu.dcdebugmask=0x40000`
 2. Set time
     - `timedatectl set-local-rtc 1`
 3. Enable system request
